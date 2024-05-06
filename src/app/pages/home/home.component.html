@@ -1,0 +1,39 @@
+<div class="content-wrapper" >
+    <div >
+    <div class="side-bar">
+        <section>
+            <button class="my-button" (click)="createTask()">Новая задача</button>
+        </section>
+        <section class="side-nav">
+            <nav class="tab-group">
+                <a [ngClass]="{activeTab: activeTab === 'my-tasks'}" class="tab-item" (click)="handleActiveTab(routeConstants.MY_TASKS)" >
+                    <mat-icon class="mat-icon" fontIcon="mail"></mat-icon>
+                    <span class="tab-text">Мои задачи</span>
+                </a>
+                <a [ngClass]="{activeTab: activeTab === 'important-tasks'}" class="tab-item" (click)="handleActiveTab(routeConstants.IMPORTANT)" >
+                    <mat-icon class="mat-icon" fontIcon="star"></mat-icon>
+                    <span class="tab-text">Важные</span>
+                </a>
+                <a [ngClass]="{activeTab: activeTab === 'done-tasks'}" class="tab-item" (click)="handleActiveTab(routeConstants.DONE)" > 
+                    <mat-icon class="mat-icon" fontIcon="done"></mat-icon>
+                    <span class="tab-text">Выполненные</span> 
+                </a>
+                <a [ngClass]="{activeTab: activeTab === 'deleted-tasks'}" class="tab-item" (click)="handleActiveTab(routeConstants.DELETED)" >
+                    <mat-icon class="mat-icon" fontIcon="delete"></mat-icon>
+                    <span class="tab-text">Удаленные</span>
+                </a>
+            </nav>
+        </section>
+        <section class="tags">
+            <span>теги</span>
+            @for(tag of tags; track tag) {
+                <div class="tag">
+                    <mat-icon class="mat-icon" fontIcon="circle"></mat-icon>
+                    <span class="tag-text">{{tag}}</span>
+                </div>
+            }
+        </section>
+    </div>
+    <router-outlet></router-outlet></div>
+    <app-add-task #sidenav></app-add-task>
+</div>

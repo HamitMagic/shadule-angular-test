@@ -1,0 +1,51 @@
+.sidenav-header {
+	background-color: #161D31;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+	align-items: center;
+}
+.task-info {
+	margin: 20px;
+}
+.sidenav {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 20vw;
+	background-color: #3B4253;
+}
+button {
+	background: none;
+	border: 0;
+	color: #B4B7BD;
+}
+.actions {
+	display: flex;
+	justify-content: space-between;
+}
+.button {
+	border-radius: 5px;
+	padding: 10px, 23px;
+	height: 40px;
+	width: 120px;
+	cursor: pointer;
+	&.add-task {
+		background-color: #7367F0;
+		color: #fff;
+	}
+	&.delete-task {
+		background-color: #283046;
+		color: #7367F0;
+		box-shadow: 0px 14px 28px 0px #00000033;
+
+	}
+}
+.input-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+.checkbox-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}

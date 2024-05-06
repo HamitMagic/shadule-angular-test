@@ -1,0 +1,60 @@
+<mat-sidenav #sideItem class="sidenav-wrapper" position="end" opened="false" mode="side" fixedInViewport fixedTopGap="56">
+	<div class="sidenav">
+		<section class="sidenav-header">
+			<span>Задачи</span>
+			<span>
+				<mat-icon class="mat-icon" fontIcon="star"></mat-icon>
+				<button mat-button (click)="onClose()">
+					<mat-icon class="mat-icon" fontIcon="close"></mat-icon>
+				</button>
+			</span>
+		</section>
+		<div class="task-info">
+			<section class="task-description">
+				<form [formGroup]="newTask" (submit)="send()">
+					<div class="input-wrapper">
+						<label name="name">Название</label>
+						<input name="name" formControlName="name" type="text">
+					</div>
+					<div class="input-wrapper">
+						<label name="deadline">Дата заверншения задачи</label>
+						<input name="deadline" formControlName="deadline" type="date">
+					</div>
+					<div>
+						<input name="status" formControlName="status" type="checkbox">
+						<label name="status">Важная задачи</label>
+					</div>
+					<div class="input-wrapper">
+						<label name="time">Дата заверншения задачи</label>
+						<input name="time" formControlName="deadline" type="datetime-local">
+					</div>
+					<div class="input-wrapper">
+						<label name="description">Описание задачи</label>
+						<textarea name="description" formControlName="description"></textarea>
+					</div>
+					<div>Тэги</div>
+					<div class="checkbox-wrapper">
+						<div>
+							<input name="tags" formControlName="tags" type="checkbox">
+							<label name="tags">Продуктивность</label>
+						</div>
+						<div>
+							<input name="tags" formControlName="tags" type="checkbox">
+							<label name="tags">Здоровье</label>
+						</div>
+						<div>
+							<input name="tags" formControlName="tags" type="checkbox">
+							<label name="tags">Образование</label>
+						</div>
+						<div>
+							<input name="tags" formControlName="tags" type="checkbox">
+							<label name="tags">Срочно</label>
+						</div>
+					</div>
+					<button class="button add-task" type="submit">Добавить</button>
+					<button class="button delete-task" (click)="onClose()">Удалить</button>
+				</form>
+			</section>
+		</div>
+	</div>
+</mat-sidenav>
