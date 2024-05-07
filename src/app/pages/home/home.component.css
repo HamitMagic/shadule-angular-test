@@ -1,11 +1,12 @@
 .content-wrapper {
-	display: flex;
-	border: 1px solid #687697;
 	border-radius: 8px;
+	display: flex;
 	/* opacity: 1; */
 	/* filter: brightness(); */
 }
 .side-bar {
+	border: 1px solid #687697;
+	border-radius: 8px 0 0 8px;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -17,6 +18,7 @@
 	flex-direction: column;
 	color: #D0D2D6;
 	gap: 20px;
+	
 	& .tab-item {
 		position: relative;
 	}

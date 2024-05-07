@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITask } from '../shared/models/tasks.model';
+import { ITask, ITaskID } from '../shared/models/tasks.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,25 +11,25 @@ export class APIService {
 	get() {
 		try {
 			const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-			return tasks as ITask[];
+			return tasks as ITaskID[];
 		} catch (error) {
 			throw new Error('ошибка получения данных');
 		}
 	}
 
 	add(task: ITask):number {
-		const tasks:ITask[] = this.get();
-		task.id = Math.random()*1000000;
-		tasks.push(task);
+		const tasks:ITaskID[] = this.get();
+		const data:ITaskID = {...task, id: Math.random()*1000000};
+		tasks.push(task as ITaskID);
 		try {
 			localStorage.setItem('tasks', JSON.stringify(tasks))
-			return task.id;
+			return data.id;
 		} catch (error) {
 			throw new Error('ощибка записи данных');
 		}
 	}
-	delete(id: number):ITask[] {
-		const tasks: ITask[] = this.get().map((task) => task.id === id ? {...task, status: 'deleted'} : task );
+	delete(id: number):ITaskID[] {
+		const tasks: ITaskID[] = this.get().map((task) => task.id === id ? {...task, status: 'deleted'} : task );
 		try {
 			localStorage.setItem('tasks', JSON.stringify(tasks))
 			return tasks;

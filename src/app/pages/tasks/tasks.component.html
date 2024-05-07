@@ -1,0 +1,31 @@
+@if (taskList.length !== 0) {
+	<div class="content-wrapper">
+		<div class="item-wrapper">
+			<form class="form">
+				<label for="search"></label>
+				<mat-icon fontIcon="search" class="mat-icon"></mat-icon>
+				<input class="search" id="search" type="text" placeholder="Поиск">
+			</form>
+		</div>
+		<div class="item-wrapper">
+			<span>{{text}}</span>
+		</div>
+		@for (task of shownTaskList; track task){
+			<div class="item-wrapper">
+				<app-task-item [task]="task"></app-task-item>
+			</div>
+		}
+		@if (taskList.length > 5) {
+			<div class="item-wrapper btn-wrapper">
+				<button (click)="previousTasks()"><</button>
+				<button (click)="nextTasks()">></button>
+			</div>
+		}
+	</div>
+} @else {
+	<div class="content-wrapper">
+		<span class="empty">
+			Нет задач для отобраеняи
+		</span>
+	</div>
+}

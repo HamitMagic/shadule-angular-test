@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { ITask } from '../../models/tasks.model';
 import { TaskService } from '../../../service/task.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-task',
@@ -33,7 +34,7 @@ export class AddTaskComponent {
   public newTask: FormGroup;
   public newTaskID: number | undefined;
 
-  constructor(private formBuilder: FormBuilder, private taskService: TaskService) {
+  constructor(private formBuilder: FormBuilder, private taskService: TaskService, private router: Router) {
     this.newTask = this.formBuilder.group({
       name: [''],
       deadline: [''],
@@ -55,14 +56,15 @@ export class AddTaskComponent {
     this.sideItem.open();
   }
   postNewTask() {
-    const newTask:ITask = {
+    const newTask: ITask = {
       name: this.newTask.value.name,
       deadline: new Date(this.newTask.value.deadline),
       deadlineTime: new Date(this.newTask.value.deadlineTime),
       created: new Date(),
       description: this.newTask.value.description,
       tags: [],
-      status: this.newTask.value.status ? 'important' : undefined,
+      status: undefined,
+      isUrgent: this.newTask.value.urgent,
     };
     if (this.newTask.value.productivity) newTask.tags.push('productivity');
     if (this.newTask.value.health) newTask.tags.push('health');
@@ -70,8 +72,5 @@ export class AddTaskComponent {
     if (this.newTask.value.urgent) newTask.tags.push('urgent');
     this.newTaskID = this.taskService.add(newTask);
     this.sideItem.close()
-  }
-  status(): boolean {
-    return this.sideItem.opened;
   }
 }

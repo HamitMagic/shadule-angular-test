@@ -1,0 +1,21 @@
+<div class="task-wrapper">
+	@if (!task.status?.includes('done')) {
+		<input type="checkbox">
+	}
+	<span>
+		{{task.name}}
+	</span>
+	<span class="tags">
+		@for (tag of task.tags; track tag) {
+			<span (ngClass)="tag">{{tag}}</span>
+		}
+	</span>
+	<span>{{task.deadlineTime | date:'YYYY.MM.dd в HH:mm'}}</span>
+	<span>
+		<mat-icon (click)="deleteTask(task.id)" title="удалить" class="delete mat-icon" fontIcon="delete"></mat-icon>
+	</span>
+	<span>
+		<mat-icon class="drag mat-icon" fontIcon="drag_indicator"></mat-icon>
+	</span>
+</div>
+

@@ -1,0 +1,14 @@
+.mat-icon {
+	transform: scale(0.6);
+}
+.task-wrapper {
+	display: flex;
+	align-items: center;
+	display: grid;
+	grid-template-columns: 1fr 9fr 9fr 4fr 1fr 1fr;
+	gap: 16px;
+}
+.tags {
+	display: flex;
+	gap: 8px;
+}

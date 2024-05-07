@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router, RouterOutlet } from '@angular/router';
 import { ROUTE_CONSTANTS } from '../../shared/models/route-constants';
@@ -26,7 +26,6 @@ import { AddTaskComponent } from '../../shared/components/add-task/add-task.comp
 })
 export class HomeComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: AddTaskComponent;
-  @ViewChild('shadow') shadow!: HTMLDivElement;
   public routeConstants = ROUTE_CONSTANTS;
   public activeTab: string = '';
   public tags: string[] = TAGS;
@@ -46,8 +45,5 @@ export class HomeComponent implements OnInit {
   }
   createTask() {
     this.sidenav.onOpen();
-  }
-  statusSidenav() {
-    return this.sidenav.status();
   }
 }

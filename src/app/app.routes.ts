@@ -15,30 +15,22 @@ export const routes: Routes = [
       {
         path: ROUTE_CONSTANTS.DELETED,
         loadComponent: () =>
-          import('./pages/deleted-tasks/deleted-tasks.component').then(
-            (m) => m.DeletedTasksComponent
-          ),
+          import('./pages/tasks/tasks.component').then((m) => m.TasksComponent),
       },
       {
         path: ROUTE_CONSTANTS.MY_TASKS,
         loadComponent: () =>
-          import('./pages/my-tasks/my-tasks.component').then(
-            (m) => m.MyTasksComponent
-          ),
+          import('./pages/tasks/tasks.component').then((m) => m.TasksComponent),
       },
       {
         path: ROUTE_CONSTANTS.IMPORTANT,
         loadComponent: () =>
-          import('./pages/important-tasks/important-tasks.component').then(
-            (m) => m.ImportantTasksComponent
-          ),
+          import('./pages/tasks/tasks.component').then((m) => m.TasksComponent),
       },
       {
         path: ROUTE_CONSTANTS.DONE,
         loadComponent: () =>
-          import('./pages/done-tasks/done-tasks.component').then(
-            (m) => m.DoneTasksComponent
-          ),
+          import('./pages/tasks/tasks.component').then((m) => m.TasksComponent),
       },
     ],
   },
