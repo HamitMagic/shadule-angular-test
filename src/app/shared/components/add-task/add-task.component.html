@@ -11,48 +11,63 @@
 		</section>
 		<div class="task-info">
 			<section class="task-description">
-				<form [formGroup]="newTask" (submit)="send()">
+				<form [formGroup]="newTask" class="form" (submit)="postNewTask()">
 					<div class="input-wrapper">
-						<label name="name">Название</label>
-						<input name="name" formControlName="name" type="text">
+						<label for="name">Название</label>
+						<input id="name" formControlName="name" placeholder="Название задачи" required type="text">
 					</div>
 					<div class="input-wrapper">
-						<label name="deadline">Дата заверншения задачи</label>
-						<input name="deadline" formControlName="deadline" type="date">
+						<label for="deadline">Дата завершения задачи</label>
+						<input 
+							id="deadline"
+							formControlName="deadline"
+							onfocus="(this.type='date', this.color='#E0E0E0')"
+      				onblur="(this.type='text')"
+							placeholder="дата звершения задачи" 
+						>
 					</div>
 					<div>
-						<input name="status" formControlName="status" type="checkbox">
-						<label name="status">Важная задачи</label>
+						<input for="status" formControlName="status" type="checkbox">
+						<label id="status">Важная задачи</label>
 					</div>
 					<div class="input-wrapper">
-						<label name="time">Дата заверншения задачи</label>
-						<input name="time" formControlName="deadline" type="datetime-local">
+						<label for="time">Дата и вермя завершения задачи</label>
+						<input 
+							id="time"
+							#time
+							onfocus="(this.type='datetime-local', this.color='#E0E0E0')"
+      				onblur="(this.type='text', this.value=this.value.replace('T', ' в '))"
+							formControlName="deadlineTime" 
+							placeholder="дата и время когда планируете закончить" 
+						>
 					</div>
 					<div class="input-wrapper">
-						<label name="description">Описание задачи</label>
-						<textarea name="description" formControlName="description"></textarea>
+						<label for="description">Описание задачи</label>
+						<textarea id="description" placeholder="описание задачи" formControlName="description"></textarea>
 					</div>
 					<div>Тэги</div>
 					<div class="checkbox-wrapper">
 						<div>
-							<input name="tags" formControlName="tags" type="checkbox">
-							<label name="tags">Продуктивность</label>
+							<input for="productivity" formControlName="productivity" type="checkbox">
+							<label id="productivity">Продуктивность</label>
 						</div>
 						<div>
-							<input name="tags" formControlName="tags" type="checkbox">
-							<label name="tags">Здоровье</label>
+							<input for="health" formControlName="health" type="checkbox">
+							<label name="health">Здоровье</label>
 						</div>
 						<div>
-							<input name="tags" formControlName="tags" type="checkbox">
-							<label name="tags">Образование</label>
+							<input for="education" formControlName="education" type="checkbox">
+							<label name="education">Образование</label>
 						</div>
 						<div>
-							<input name="tags" formControlName="tags" type="checkbox">
-							<label name="tags">Срочно</label>
+							<input for="urgent" formControlName="urgent" type="checkbox">
+							<label id="urgent">Срочно</label>
 						</div>
 					</div>
-					<button class="button add-task" type="submit">Добавить</button>
-					<button class="button delete-task" (click)="onClose()">Удалить</button>
+					<div class="actions">
+						<button class="button add-task" type="submit">Добавить</button>
+						<button class="button delete-task" (click)="onClose()">Удалить</button>
+					</div>
 				</form>
 			</section>
 		</div>

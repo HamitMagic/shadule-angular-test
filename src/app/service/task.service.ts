@@ -32,7 +32,7 @@ export class TaskService {
     return this.api.get().filter((task) => task.status === 'done');
   }
 
-  set(task: ITask): number {
+  add(task: ITask): number {
     return this.api.add(task);
   }
   

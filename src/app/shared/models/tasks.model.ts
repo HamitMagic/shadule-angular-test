@@ -1,9 +1,10 @@
 export interface ITask {
-	deadline: Date,
-	created: Date,
-	id: number,
-	description: string,
-	tags: string[];
-	name: string,
-	status: 'deleted' | 'important' | 'done' | undefined,
+  deadline: Date;
+  deadlineTime: Date;
+  created: Date;
+  id?: number | undefined;
+  description: string;
+  tags: string[];
+  name: string;
+  status: 'deleted' | 'important' | 'done' | undefined;
 }

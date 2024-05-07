@@ -1,5 +1,4 @@
 <div class="content-wrapper" >
-    <div >
     <div class="side-bar">
         <section>
             <button class="my-button" (click)="createTask()">Новая задача</button>
@@ -27,13 +26,16 @@
         <section class="tags">
             <span>теги</span>
             @for(tag of tags; track tag) {
-                <div class="tag">
+                <a class="tag">
                     <mat-icon class="mat-icon" fontIcon="circle"></mat-icon>
                     <span class="tag-text">{{tag}}</span>
-                </div>
+                </a>
             }
         </section>
     </div>
-    <router-outlet></router-outlet></div>
-    <app-add-task #sidenav></app-add-task>
+    <router-outlet></router-outlet>
 </div>
+<app-add-task #sidenav></app-add-task>
+<!-- @if (statusSidenav()) { -->
+    <!-- <div #shadow class="shadow-background"></div> -->
+<!-- } -->

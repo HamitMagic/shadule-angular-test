@@ -8,12 +8,21 @@
 .task-info {
 	margin: 20px;
 }
+.sidenav-wrapper {
+	z-index: 100;
+}
 .sidenav {
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 20vw;
+	width: 30vw;
+	height: 100vh;
 	background-color: #3B4253;
+}
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 button {
 	background: none;
@@ -22,7 +31,7 @@ button {
 }
 .actions {
 	display: flex;
-	justify-content: space-between;
+	gap: 30px;
 }
 .button {
 	border-radius: 5px;
@@ -38,7 +47,6 @@ button {
 		background-color: #283046;
 		color: #7367F0;
 		box-shadow: 0px 14px 28px 0px #00000033;
-
 	}
 }
 .input-wrapper {
@@ -48,4 +56,22 @@ button {
 .checkbox-wrapper {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+}
+textarea {
+	height: 4rem;
+}
+textarea, input {
+	background-color: #3B4253;
+	border: 1px #687697 solid;
+	padding: 7px 14px;
+	border-radius: 5px;
+	color:#E0E0E0;
+	resize: none;
+
+	&::-webkit-input-placeholder {
+		color: #676D7D;
+	}
+	&::-moz-placeholder {
+		color: #676D7D;
+	}
 }

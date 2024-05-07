@@ -2,15 +2,14 @@
 
 html, body { 
 	height: 100%; 
-	width: 100%;
 }
 body {
 	margin: 96px 100px; 
 	background-color: #13192A; 
 	font-family: "Montserrat","Roboto", "Helvetica Neue", "sans-serif";
 	color: #D0D2D6;
+	box-sizing: border-box;
 }
 .content-wrapper {
-	padding: 20px ;
 	background-color: #3B4253;
 }

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router, RouterOutlet } from '@angular/router';
 import { ROUTE_CONSTANTS } from '../../shared/models/route-constants';
 import { TAGS } from '../../shared/models/tags-constants';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton} from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
 import { AddTaskComponent } from '../../shared/components/add-task/add-task.component';
 
 @Component({
@@ -18,12 +19,14 @@ import { AddTaskComponent } from '../../shared/components/add-task/add-task.comp
     MatIconModule,
     MatButton,
     AddTaskComponent,
+    MatDivider,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: AddTaskComponent;
+  @ViewChild('shadow') shadow!: HTMLDivElement;
   public routeConstants = ROUTE_CONSTANTS;
   public activeTab: string = '';
   public tags: string[] = TAGS;
@@ -43,5 +46,8 @@ export class HomeComponent implements OnInit {
   }
   createTask() {
     this.sidenav.onOpen();
+  }
+  statusSidenav() {
+    return this.sidenav.status();
   }
 }

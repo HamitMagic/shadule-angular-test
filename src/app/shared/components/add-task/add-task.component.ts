@@ -10,6 +10,8 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
+import { ITask } from '../../models/tasks.model';
+import { TaskService } from '../../../service/task.service';
 
 @Component({
   selector: 'app-add-task',
@@ -29,14 +31,19 @@ import {
 export class AddTaskComponent {
   @ViewChild('sideItem') sideItem!: MatSidenav;
   public newTask: FormGroup;
+  public newTaskID: number | undefined;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private taskService: TaskService) {
     this.newTask = this.formBuilder.group({
       name: [''],
       deadline: [''],
-      created: [''],
+      deadlineTime: [''],
+      created: [new Date()],
       description: [''],
-      tags: [''],
+      productivity: false,
+      health: false,
+      education: false,
+      urgent: false,
       status: [''],
     });
   }
@@ -47,7 +54,24 @@ export class AddTaskComponent {
   onOpen() {
     this.sideItem.open();
   }
-  send() {
-    console.log(this.newTask);
+  postNewTask() {
+    const newTask:ITask = {
+      name: this.newTask.value.name,
+      deadline: new Date(this.newTask.value.deadline),
+      deadlineTime: new Date(this.newTask.value.deadlineTime),
+      created: new Date(),
+      description: this.newTask.value.description,
+      tags: [],
+      status: this.newTask.value.status ? 'important' : undefined,
+    };
+    if (this.newTask.value.productivity) newTask.tags.push('productivity');
+    if (this.newTask.value.health) newTask.tags.push('health');
+    if (this.newTask.value.education) newTask.tags.push('education');
+    if (this.newTask.value.urgent) newTask.tags.push('urgent');
+    this.newTaskID = this.taskService.add(newTask);
+    this.sideItem.close()
+  }
+  status(): boolean {
+    return this.sideItem.opened;
   }
 }
