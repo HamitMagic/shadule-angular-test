@@ -3,11 +3,17 @@ export interface ITask {
   deadlineTime: Date;
   created: Date;
   description: string;
-  tags: string[];
+  tags: TTag[];
   name: string;
-  status: 'deleted' | 'done' | undefined;
-  isUrgent: boolean;
+  isDeleted: boolean;
+  isDone: boolean;
+  isImportant: boolean;
 }
 export interface ITaskID extends ITask {
   id: number
+}
+export type TStatusKeys = 'isDeleted' | 'isDone';
+export interface TTag {
+  class: string,
+  text: string,
 }

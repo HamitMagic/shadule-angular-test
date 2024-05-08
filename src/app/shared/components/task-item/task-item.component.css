@@ -11,4 +11,33 @@
 .tags {
 	display: flex;
 	gap: 8px;
+	& .tag-item {
+		border-radius: 8px;
+		padding: 0 4px;
+	}
+}
+.productivity {
+	color: #7367F0;
+	background-color: #7367F01F;
+}
+.health {
+	color: #FF9F43;
+	background-color: #FF9F431F;
+}
+.education {
+	color: #28C76F;
+	background-color: #28C76F1F;
+}
+.urgent {
+	color: #EA5455;
+	background-color: #EA54551F ;
+}
+.important-task {
+	color: #F2C94C;
+}
+.delete {
+	cursor: pointer;
+}
+.drag {
+	cursor: grab;
 }

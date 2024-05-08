@@ -1,18 +1,24 @@
 <div class="task-wrapper">
-	@if (!task.status?.includes('done')) {
-		<input type="checkbox">
+	@if (!deleted) {
+		<input type="checkbox" [(ngModel)]="checked" (click)="toggleFinishTask()">
+	} @else {
+		<span></span>
 	}
-	<span>
+	<span [ngClass]="task.isImportant ? class : ''">
 		{{task.name}}
 	</span>
 	<span class="tags">
 		@for (tag of task.tags; track tag) {
-			<span (ngClass)="tag">{{tag}}</span>
+			<span [ngClass]="tag.class" class="tag-item">{{tag.text}}</span>
 		}
 	</span>
 	<span>{{task.deadlineTime | date:'YYYY.MM.dd в HH:mm'}}</span>
 	<span>
-		<mat-icon (click)="deleteTask(task.id)" title="удалить" class="delete mat-icon" fontIcon="delete"></mat-icon>
+		@if (deleted) {
+			<mat-icon (click)="restoreTask()" title="восстановить" class="delete mat-icon" fontIcon="refresh"></mat-icon>
+		}@else {
+			<mat-icon (click)="deleteTask()" title="удалить" class="delete mat-icon" fontIcon="delete"></mat-icon>
+		}
 	</span>
 	<span>
 		<mat-icon class="drag mat-icon" fontIcon="drag_indicator"></mat-icon>

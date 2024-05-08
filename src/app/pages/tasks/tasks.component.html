@@ -1,10 +1,10 @@
 @if (taskList.length !== 0) {
 	<div class="content-wrapper">
 		<div class="item-wrapper">
-			<form class="form">
+			<form class="form" (submit)="searchByName(searchText)">
 				<label for="search"></label>
 				<mat-icon fontIcon="search" class="mat-icon"></mat-icon>
-				<input class="search" id="search" type="text" placeholder="Поиск">
+				<input class="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" id="search" type="text" placeholder="Поиск">
 			</form>
 		</div>
 		<div class="item-wrapper">
@@ -12,7 +12,11 @@
 		</div>
 		@for (task of shownTaskList; track task){
 			<div class="item-wrapper">
-				<app-task-item [task]="task"></app-task-item>
+				<app-task-item 
+					(update)="updateStatus(task, $event)"
+					[task]="task"
+					[class]="text==='Важные задачи' ? '' : 'important-task'">
+				</app-task-item>
 			</div>
 		}
 		@if (taskList.length > 5) {

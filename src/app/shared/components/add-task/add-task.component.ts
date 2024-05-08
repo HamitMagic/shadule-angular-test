@@ -10,8 +10,9 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { ITask } from '../../models/tasks.model';
+import { ITask, ITaskID } from '../../models/tasks.model';
 import { TaskService } from '../../../service/task.service';
+import { tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,19 +33,24 @@ import { Router } from '@angular/router';
 export class AddTaskComponent {
   @ViewChild('sideItem') sideItem!: MatSidenav;
   public newTask: FormGroup;
-  public newTaskID: number | undefined;
+  public newTaskID: ITaskID | undefined;
 
-  constructor(private formBuilder: FormBuilder, private taskService: TaskService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private taskService: TaskService,
+    private router: Router
+  ) {
     this.newTask = this.formBuilder.group({
       name: [''],
       deadline: [''],
       deadlineTime: [''],
       created: [new Date()],
       description: [''],
-      productivity: false,
-      health: false,
-      education: false,
-      urgent: false,
+      productivity: [''],
+      health: [''],
+      education: [''],
+      isUrgent: [''],
+      important: [''],
       status: [''],
     });
   }
@@ -63,14 +69,22 @@ export class AddTaskComponent {
       created: new Date(),
       description: this.newTask.value.description,
       tags: [],
-      status: undefined,
-      isUrgent: this.newTask.value.urgent,
+      isDeleted: false,
+      isDone: false,
+      isImportant: this.newTask.value.important,
     };
-    if (this.newTask.value.productivity) newTask.tags.push('productivity');
-    if (this.newTask.value.health) newTask.tags.push('health');
-    if (this.newTask.value.education) newTask.tags.push('education');
-    if (this.newTask.value.urgent) newTask.tags.push('urgent');
-    this.newTaskID = this.taskService.add(newTask);
-    this.sideItem.close()
+    if (this.newTask.value.productivity)
+      newTask.tags.push({ text: 'Продуктивность', class: 'productivity' });
+    if (this.newTask.value.health)
+      newTask.tags.push({ text: 'Здоровье', class: 'health' });
+    if (this.newTask.value.education)
+      newTask.tags.push({ text: 'Образование', class: 'education' });
+    if (this.newTask.value.isUrgent)
+      newTask.tags.push({ text: 'Срочно', class: 'urgent' });
+    this.taskService
+      .add(newTask)
+      .pipe(tap(() => () => this.taskService.filterTaskList(this.router.url.slice(1))))
+      .subscribe();
+    this.sideItem.close();
   }
 }
