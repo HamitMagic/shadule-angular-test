@@ -28,6 +28,11 @@ export const routes: Routes = [
           import('./pages/tasks/tasks.component').then((m) => m.TasksComponent),
       },
       {
+        path: ROUTE_CONSTANTS.SEARCH,
+        loadComponent: () =>
+          import('./pages/tasks/tasks.component').then((m) => m.TasksComponent),
+      },
+      {
         path: ROUTE_CONSTANTS.DONE,
         loadComponent: () =>
           import('./pages/tasks/tasks.component').then((m) => m.TasksComponent),

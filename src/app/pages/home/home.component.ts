@@ -8,6 +8,7 @@ import { MatButton} from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { AddTaskComponent } from '../../shared/components/add-task/add-task.component';
 import { ITag, TAG } from '../../shared/models/tasks.model';
+import { TaskService } from '../../service/task.service';
 
 @Component({
   selector: 'app-home',
@@ -29,13 +30,24 @@ export class HomeComponent implements OnInit {
   public routeConstants = ROUTE_CONSTANTS;
   public activeTab: string = '';
   public tags: ITag[] = TAG;
-  constructor(private router: Router) {}
 
+  constructor(private router: Router, private taskService: TaskService) {}
+  
   ngOnInit(): void {
     this.getCurrentRoute();
+    
   }
-  toggleTag(tag: ITag) {
-    tag.isActive = !tag.isActive;
+  toggleTag(data: ITag) {
+    data.isActive = !data.isActive;
+    const selectedTags: string[] = this.tags.filter(tag => tag.isActive).map(tag => tag.class);
+    if (selectedTags.length > 0) {
+      this.taskService.getByTagList(selectedTags).subscribe();
+      this.router.navigate([this.routeConstants.SEARCH]);
+    } else {
+      this.taskService.filterTaskList(this.router.url.slice(1)).subscribe();
+      this.activeTab = this.routeConstants.MY_TASKS;
+      this.router.navigate([this.routeConstants.HOME]);
+    }
   }
   private getCurrentRoute() {
     this.activeTab = this.router.url.split('/')[1];
@@ -43,6 +55,8 @@ export class HomeComponent implements OnInit {
 
   handleActiveTab(tab: string): void {
     this.activeTab = tab;
+    const elements = document.getElementsByClassName('active');
+    Array.from(elements).map(el => el.className='tag')
     this.router.navigate([ROUTE_CONSTANTS.HOME, tab]);
   }
   createTask() {

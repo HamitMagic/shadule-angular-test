@@ -50,6 +50,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.subscription = this.taskService.subject.subscribe((newData) => {
       this.taskList = newData;
       this.changeShownTasks();
+      return
     });
     this.changeShownTasks();
   }
@@ -74,12 +75,9 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (!this.searchText) this.changeShownTasks();
   }
   private changeShownTasks() {
+    console.log(this.taskList, '-----------tasklist')
     this.shownTaskList = [];
-    for (
-      let i = Math.max(this.pre, 0);
-      i <= Math.min(this.next, this.taskList.length - 1);
-      i++
-    ) {
+    for (let i = Math.max(this.pre, 0); i <= Math.min(this.next, this.taskList.length - 1); i++) {
       this.shownTaskList.push(this.taskList[i]);
     }
   }

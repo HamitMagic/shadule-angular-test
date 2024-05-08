@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITask, ITaskID } from '../shared/models/tasks.model';
+import { ITag, ITask, ITaskID } from '../shared/models/tasks.model';
 import { APIService } from './API.service';
 import { Observable, Subject, of, tap } from 'rxjs';
 import { ROUTE_CONSTANTS } from '../shared/models/route-constants';
@@ -14,29 +14,32 @@ export class TaskService {
   
   constructor(private api: APIService) {
   }
+
   updateData(newData: ITaskID[]) {
     this.subject.next(newData)
   }
   getDeletedList(): Observable<ITaskID[]> {
     return of(this.api.get().filter((task, index) => task.isDeleted));
   }
-
+  getByTagList(tags:string[]): Observable<ITaskID[]> {
+    const tasks = this.api.get().filter(task => task.tags.some(tag => tags.includes(tag.class)))
+    console.log(tasks)
+    console.log(tags);
+    this.updateData(tasks);
+    return of(tasks);
+  }
   getImportantList(): Observable<ITaskID[]> {
-    return of(
-      this.api
-        .get()
-        .filter(
-          (task, index) => task.isImportant && !task.isDone && !task.isDeleted
-        )
+    return of(this.api
+      .get().filter(
+        (task, index) => task.isImportant && !task.isDone && !task.isDeleted
+      )
     );
   }
-
   getMyList(): Observable<ITaskID[]> {
     return of(
       this.api.get().filter((task, index) => !task.isDone && !task.isDeleted)
     );
   }
-
   getDoneList(): Observable<ITaskID[]> {
     return of(
       this.api.get().filter((task, index) => task.isDone && !task.isDeleted)
@@ -57,7 +60,7 @@ export class TaskService {
     this.api.modify(id, status);
   }
 
-  public filterTaskList(route:string):Observable<[string, ITaskID[]]> {
+  filterTaskList(route:string):Observable<[string, ITaskID[]]> {
     switch (route) {
       case this.routeConstants.IMPORTANT: {
         this.getImportantList()
