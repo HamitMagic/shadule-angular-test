@@ -3,11 +3,12 @@ import { ITaskID } from '../../models/tasks.model';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule, MatIconModule, FormsModule],
+  imports: [CommonModule, MatIconModule, FormsModule, CdkDragHandle],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css',
 })
@@ -18,7 +19,6 @@ export class TaskItemComponent implements OnInit {
   @Output() update: EventEmitter<any> = new EventEmitter();
   public checked!: boolean;
   public deleted!: boolean;
-
   constructor() {}
 
   // selectedText():string {
@@ -33,12 +33,12 @@ export class TaskItemComponent implements OnInit {
   }
   toggleFinishTask() {
     this.checked = !this.checked;
-    this.update.emit({isDone: this.checked});
+    this.update.emit({ isDone: this.checked });
   }
   deleteTask() {
-    this.update.emit({isDeleted: true});
+    this.update.emit({ isDeleted: true });
   }
   restoreTask() {
-    this.update.emit({isDeleted: false});
+    this.update.emit({ isDeleted: false });
   }
 }

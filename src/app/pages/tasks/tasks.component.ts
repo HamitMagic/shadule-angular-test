@@ -7,11 +7,24 @@ import { TaskItemComponent } from '../../shared/components/task-item/task-item.c
 import { Subscription, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-my-tasks',
   standalone: true,
-  imports: [MatIconModule, TaskItemComponent,CommonModule,FormsModule],
+  imports: [
+    MatIconModule,
+    TaskItemComponent,
+    CommonModule,
+    FormsModule,
+    CdkDropList,
+    CdkDrag,
+  ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
@@ -22,8 +35,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   public text!: string;
   public pre = 0;
   public next = 4;
-  private subscription!:Subscription;
-
+  private subscription!: Subscription;
   constructor(private router: Router, private taskService: TaskService) {
     this.updateTaskList();
   }
@@ -63,18 +75,35 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
   private changeShownTasks() {
     this.shownTaskList = [];
-    for (let i = Math.max(this.pre, 0); i <= Math.min(this.next, this.taskList.length - 1); i++) {
+    for (
+      let i = Math.max(this.pre, 0);
+      i <= Math.min(this.next, this.taskList.length - 1);
+      i++
+    ) {
       this.shownTaskList.push(this.taskList[i]);
     }
   }
-  
+
   searchByName(searchText: string) {
-    if (!searchText) return
-    this.taskService.getAll().pipe(tap((res) => 
-      this.taskList = res.filter(
-        task => task.name.toLowerCase().includes(searchText.toLowerCase())
+    if (!searchText) return;
+    this.taskService
+      .getAll()
+      .pipe(
+        tap(
+          (res) =>
+            (this.taskList = res.filter((task) =>
+              task.name.toLowerCase().includes(searchText.toLowerCase())
+            ))
+        )
       )
-    )).subscribe();
+      .subscribe();
     this.changeShownTasks();
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.shownTaskList,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 }

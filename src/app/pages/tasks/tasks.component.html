@@ -10,16 +10,17 @@
 		<div class="item-wrapper">
 			<span>{{text}}</span>
 		</div>
+		<div class="task-wrapper" cdkDropList (cdkDropListDropped)="drop($event)">
 		@for (task of shownTaskList; track task){
-			<div class="item-wrapper">
-				<app-task-item 
+				<app-task-item
+					cdkDrag
 					(update)="updateStatus(task, $event)"
 					[task]="task"
 					[searchText]="searchText"
 					[class]="text==='Важные задачи' ? '' : 'important-task'">
 				</app-task-item>
-			</div>
-		}
+			}
+		</div>
 		@if (taskList.length > 5) {
 			<div class="item-wrapper btn-wrapper">
 				<button (click)="previousTasks()"><</button>
