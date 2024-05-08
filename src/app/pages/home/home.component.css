@@ -39,7 +39,7 @@
 }
 .mat-icon {
 	transform: scale(0.6);
-	position: absolute;
+	/* position: absolute; */
 	bottom: 0;
 }
 .tags {
@@ -48,7 +48,11 @@
 
 	& .tag {
 		position: relative;
-		margin: 17px;
+		display: flex;
+		place-items: center;
+		padding: 10px;
+		margin: 6px;
+		border-radius: 4px;
 	}
 	& :nth-child(2) {
 		color: #7367F0;
@@ -69,4 +73,7 @@
 }
 a {
 	cursor: pointer;
+}
+.active {
+	border: 1px solid #9B51E0;
 }

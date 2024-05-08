@@ -75,3 +75,7 @@ textarea, input {
 		color: #676D7D;
 	}
 }
+.text-danger {
+	color: red;
+	font-size: small;
+}

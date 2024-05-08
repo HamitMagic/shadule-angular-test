@@ -8,15 +8,14 @@ import { ROUTE_CONSTANTS } from '../shared/models/route-constants';
   providedIn: 'root',
 })
 export class TaskService {
-  private dataSubject = new Subject<ITaskID[]>();
-  public subject = this.dataSubject.asObservable();
+  public subject: Subject<ITaskID[]> = new Subject();
   private routeConstants = ROUTE_CONSTANTS;
   private taskList!:ITaskID[];
   
   constructor(private api: APIService) {
   }
   updateData(newData: ITaskID[]) {
-    this.dataSubject.next(newData)
+    this.subject.next(newData)
   }
   getDeletedList(): Observable<ITaskID[]> {
     return of(this.api.get().filter((task, index) => task.isDeleted));
@@ -49,7 +48,9 @@ export class TaskService {
   }
 
   add(task: ITask): Observable<ITaskID> {
-    return of(this.api.add({ ...task, isDeleted: false, isDone: false }));
+    const newTask = this.api.add({ ...task, isDeleted: false, isDone: false });
+    this.updateData([...this.taskList, newTask])
+    return of(newTask);
   }
 
   modifyStatus(id: number, status: { key: string; value: boolean }): void {

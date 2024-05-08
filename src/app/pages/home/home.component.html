@@ -26,9 +26,9 @@
         <section class="tags">
             <span>теги</span>
             @for(tag of tags; track tag) {
-                <a class="tag">
+                <a class="tag" (click)="toggleTag(tag)" [ngClass]="{active: tag.isActive}">
                     <mat-icon class="mat-icon" fontIcon="circle"></mat-icon>
-                    <span class="tag-text">{{tag}}</span>
+                    <span class="tag-text" >{{tag.text}}</span>
                 </a>
             }
         </section>

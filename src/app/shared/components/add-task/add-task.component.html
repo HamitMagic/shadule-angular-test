@@ -14,7 +14,15 @@
 				<form [formGroup]="newTask" class="form" (submit)="postNewTask()">
 					<div class="input-wrapper">
 						<label for="name">Название</label>
-						<input id="name" formControlName="name" placeholder="Название задачи" required type="text">
+						<input id="name" formControlName="name" placeholder="Название задачи" type="text">
+						@if((newTaskFormControl['name'].touched || submitted) && 
+							newTaskFormControl['name'].errors && 
+							newTaskFormControl['name'].errors['required']
+						){
+							<span class="text-danger">
+								введите название задачи
+							</span>
+						}
 					</div>
 					<div class="input-wrapper">
 						<label for="deadline">Дата завершения задачи</label>
@@ -25,6 +33,14 @@
       				onblur="(this.type='text')"
 							placeholder="дата звершения задачи" 
 						>
+						@if((newTaskFormControl['deadline'].touched || submitted) && 
+							newTaskFormControl['deadline'].errors && 
+							newTaskFormControl['deadline'].errors['required']
+							){
+							<span class="text-danger">
+								введите дату
+							</span>
+						}
 					</div>
 					<div>
 						<input for="important" formControlName="important" type="checkbox">
@@ -40,6 +56,14 @@
 							formControlName="deadlineTime" 
 							placeholder="дата и время когда планируете закончить" 
 						>
+						@if((newTaskFormControl['deadlineTime'].touched || submitted) && 
+							newTaskFormControl['deadlineTime'].errors && 
+							newTaskFormControl['deadlineTime'].errors['required']
+						){
+							<span class="text-danger">
+								введите дату и время
+							</span>
+						}
 					</div>
 					<div class="input-wrapper">
 						<label for="description">Описание задачи</label>

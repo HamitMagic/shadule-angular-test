@@ -4,7 +4,7 @@
 	} @else {
 		<span></span>
 	}
-	<span [ngClass]="task.isImportant ? class : ''">
+	<span class="task-name" [ngClass]="task.isImportant ? class : ''">
 		{{task.name}}
 	</span>
 	<span class="tags">

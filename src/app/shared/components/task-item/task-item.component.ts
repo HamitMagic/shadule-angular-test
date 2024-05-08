@@ -14,12 +14,19 @@ import { FormsModule } from '@angular/forms';
 export class TaskItemComponent implements OnInit {
   @Input() task!: ITaskID;
   @Input() class: string = '';
+  @Input() searchText: string = '';
   @Output() update: EventEmitter<any> = new EventEmitter();
   public checked!: boolean;
   public deleted!: boolean;
 
   constructor() {}
 
+  // selectedText():string {
+  //   if (!this.searchText) return this.task.name
+  //   return this.task.name.replace(
+  //     this.searchText, `<span class="search-text">${this.searchText}</span>`
+  //   );
+  // }
   ngOnInit(): void {
     this.checked = this.task.isDone;
     this.deleted = this.task.isDeleted;

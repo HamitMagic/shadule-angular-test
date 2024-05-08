@@ -3,7 +3,7 @@ export interface ITask {
   deadlineTime: Date;
   created: Date;
   description: string;
-  tags: TTag[];
+  tags: ITag[];
   name: string;
   isDeleted: boolean;
   isDone: boolean;
@@ -13,7 +13,14 @@ export interface ITaskID extends ITask {
   id: number
 }
 export type TStatusKeys = 'isDeleted' | 'isDone';
-export interface TTag {
-  class: string,
-  text: string,
+export interface ITag {
+  class: 'productivity' | 'education' | 'health' | 'urgent';
+  text: 'Продуктивность' | 'Образование' | 'Здоровье' | 'Срочно';
+  isActive?: boolean;
 }
+export const TAG: ITag[] = [
+  { class: 'productivity', text: 'Продуктивность' },
+  { class: 'education', text: 'Образование' },
+  { class: 'health', text: 'Здоровье' },
+  { class: 'urgent', text: 'Срочно' },
+];

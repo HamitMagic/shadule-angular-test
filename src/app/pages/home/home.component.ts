@@ -3,11 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router, RouterOutlet } from '@angular/router';
 import { ROUTE_CONSTANTS } from '../../shared/models/route-constants';
-import { TAGS } from '../../shared/models/tags-constants';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton} from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { AddTaskComponent } from '../../shared/components/add-task/add-task.component';
+import { ITag, TAG } from '../../shared/models/tasks.model';
 
 @Component({
   selector: 'app-home',
@@ -28,13 +28,15 @@ export class HomeComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: AddTaskComponent;
   public routeConstants = ROUTE_CONSTANTS;
   public activeTab: string = '';
-  public tags: string[] = TAGS;
+  public tags: ITag[] = TAG;
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.getCurrentRoute();
   }
-
+  toggleTag(tag: ITag) {
+    tag.isActive = !tag.isActive;
+  }
   private getCurrentRoute() {
     this.activeTab = this.router.url.split('/')[1];
   }

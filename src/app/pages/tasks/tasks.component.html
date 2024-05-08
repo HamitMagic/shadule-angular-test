@@ -15,6 +15,7 @@
 				<app-task-item 
 					(update)="updateStatus(task, $event)"
 					[task]="task"
+					[searchText]="searchText"
 					[class]="text==='Важные задачи' ? '' : 'important-task'">
 				</app-task-item>
 			</div>

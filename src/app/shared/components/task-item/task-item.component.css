@@ -41,3 +41,6 @@
 .drag {
 	cursor: grab;
 }
+.search-text {
+	color: red;
+}

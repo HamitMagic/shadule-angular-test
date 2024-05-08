@@ -18,7 +18,7 @@ export class APIService {
   }
   getByID(id: number) {
     try {
-      return of(this.get().find((task) => task.id === id));
+      return this.get().find((task) => task.id === id);
     } catch (error) {
       throw new Error('не нашел(((');
     }
