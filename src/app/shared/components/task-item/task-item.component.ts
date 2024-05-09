@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CdkDragHandle } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { DialogData } from '../../models/dialog-data';
 
 @Component({
   selector: 'app-task-item',
@@ -19,14 +22,8 @@ export class TaskItemComponent implements OnInit {
   @Output() update: EventEmitter<any> = new EventEmitter();
   public checked!: boolean;
   public deleted!: boolean;
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
-  // selectedText():string {
-  //   if (!this.searchText) return this.task.name
-  //   return this.task.name.replace(
-  //     this.searchText, `<span class="search-text">${this.searchText}</span>`
-  //   );
-  // }
   ngOnInit(): void {
     this.checked = this.task.isDone;
     this.deleted = this.task.isDeleted;
@@ -35,8 +32,17 @@ export class TaskItemComponent implements OnInit {
     this.checked = !this.checked;
     this.update.emit({ isDone: this.checked });
   }
-  deleteTask() {
+  private deleteTask() {
     this.update.emit({ isDeleted: true });
+  }
+  onDeleteTask(data: DialogData): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '480px',
+      data: data,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.deleteTask()
+    });
   }
   restoreTask() {
     this.update.emit({ isDeleted: false });

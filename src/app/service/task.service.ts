@@ -23,7 +23,7 @@ export class TaskService {
   }
   getByTagList(tags:string[]): Observable<ITaskID[]> {
     const tasks = this.api.get().filter(task => task.tags.some(tag => tags.includes(tag.class)))
-    console.log(tasks)
+    console.log(tasks);
     console.log(tags);
     this.updateData(tasks);
     return of(tasks);

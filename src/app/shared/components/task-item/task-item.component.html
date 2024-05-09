@@ -17,7 +17,13 @@
 		@if (deleted) {
 			<mat-icon (click)="restoreTask()" title="восстановить" class="delete mat-icon" fontIcon="refresh"></mat-icon>
 		}@else {
-			<mat-icon (click)="deleteTask()" title="удалить" class="delete mat-icon" fontIcon="delete"></mat-icon>
+			<mat-icon (click)="onDeleteTask({
+				question: 'Вы уверены?',
+				description: 'Вы не сможете восстановить это',
+				actionOK: 'Да, удалить',
+				actionCancel: 'Отмена',
+				titleIcon: 'info',
+			})" title="удалить" class="delete mat-icon" fontIcon="delete"></mat-icon>
 		}
 	</span>
 	<span>

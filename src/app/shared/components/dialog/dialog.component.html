@@ -1,0 +1,13 @@
+<div class="dialog-wrapper">
+	<h4 mat-dialog-title class="dialog-title">
+		<mat-icon [fontIcon]="dialogData.titleIcon"></mat-icon>
+	</h4>
+	<mat-dialog-content class="dialog-content">
+		<span>{{dialogData.question}}</span>
+		<span>{{dialogData.description}}</span>
+	</mat-dialog-content>
+	<mat-dialog-actions class="dialog-actions">
+		<button [mat-dialog-close]="true" cdkFocusInitial>{{dialogData.actionOK}}</button>
+		<button [mat-dialog-close]="false">{{dialogData.actionCancel}}</button>
+	</mat-dialog-actions>
+</div>

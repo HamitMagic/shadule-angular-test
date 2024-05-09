@@ -1,0 +1,44 @@
+.dialog-wrapper {
+	color: #D0D2D6;
+	display: flex;
+	padding: 44px;
+	background-color: #283046;
+	flex-flow: column nowrap;
+	justify-content: center;
+
+	& .dialog-title {
+		text-align: center;
+		color: #FF9F43;
+		& :first-child {
+			transform: scale(2);
+		}
+	}
+	& .dialog-content {
+		color: #D0D2D6;
+		display: grid;
+		place-items: center;
+		gap: 16px;
+		& :last-child {
+			color: #B4B7BD;
+		}
+	}
+	& .dialog-actions {
+		display: flex;
+		justify-content: center;
+		gap: 24px;
+
+		& button {
+			padding: 10px 22px;
+			border-radius: 5px;
+			gap: 8px;
+			background-color: #7367F0;
+			color: white;
+			cursor: pointer;
+		}
+		& :last-child {
+			background: none;
+			border-color: red;
+			color: red;
+		}
+	}
+}
