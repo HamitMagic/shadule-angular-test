@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITag, ITask, ITaskID } from '../shared/models/tasks.model';
+import { ITask, ITaskID } from '../shared/models/tasks.model';
 import { APIService } from './API.service';
 import { Observable, Subject, of, tap } from 'rxjs';
 import { ROUTE_CONSTANTS } from '../shared/models/route-constants';
@@ -19,35 +19,43 @@ export class TaskService {
     this.subject.next(newData)
   }
   getDeletedList(): Observable<ITaskID[]> {
-    return of(this.api.get().filter((task, index) => task.isDeleted));
+    const tasks = this.api.get().filter((task, index) => task.isDeleted);
+    this.updateData(tasks);
+    return of(tasks);
   }
   getByTagList(tags:string[]): Observable<ITaskID[]> {
-    const tasks = this.api.get().filter(task => task.tags.some(tag => tags.includes(tag.class)))
-    console.log(tasks);
-    console.log(tags);
+    const tasks = this.api.get().filter(task => task.tags.some(tag => tags.indexOf(tag.class) >=0))
     this.updateData(tasks);
     return of(tasks);
   }
   getImportantList(): Observable<ITaskID[]> {
-    return of(this.api
-      .get().filter(
+    const tasks = this.api
+      .get()
+      .filter(
         (task, index) => task.isImportant && !task.isDone && !task.isDeleted
-      )
-    );
+      );
+    this.updateData(tasks);
+    return of(tasks);
   }
   getMyList(): Observable<ITaskID[]> {
-    return of(
-      this.api.get().filter((task, index) => !task.isDone && !task.isDeleted)
-    );
+    const tasks = this.api
+      .get()
+      .filter((task, index) => !task.isDone && !task.isDeleted);
+    this.updateData(tasks);
+    return of(tasks);
   }
   getDoneList(): Observable<ITaskID[]> {
-    return of(
-      this.api.get().filter((task, index) => task.isDone && !task.isDeleted)
-    );
+    const tasks = this.api
+      .get()
+      .filter((task, index) => task.isDone && !task.isDeleted);
+    this.updateData(tasks);
+    return of(tasks);
   }
 
   getAll(): Observable<ITaskID[]> {
-    return of(this.api.get());
+    const tasks = this.api.get();
+    this.updateData(tasks);
+    return of(tasks);
   }
 
   add(task: ITask): Observable<ITaskID> {

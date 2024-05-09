@@ -9,7 +9,7 @@
 	</span>
 	<span class="tags">
 		@for (tag of task.tags; track tag) {
-			<span [ngClass]="tag.class" class="tag-item">{{tag.text}}</span>
+			<span (click)="showByTag(tag)" [ngClass]="tag.class" class="tag-item">{{tag.text}}</span>
 		}
 	</span>
 	<span>{{task.deadlineTime | date:'YYYY.MM.dd в HH:mm'}}</span>

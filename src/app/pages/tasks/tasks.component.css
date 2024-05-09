@@ -21,15 +21,18 @@
 .item-wrapper {
 	border-bottom: 1px solid #687697;
 	padding: 20px;
+
 	&.btn-wrapper {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		place-items: center;
+		
 		& button {
 			background: none;
 			cursor: pointer;
 			border: none;
 			color: inherit;
+
 			&:hover {
 				transform: scale(1.3);
 			}

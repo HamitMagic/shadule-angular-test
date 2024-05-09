@@ -87,7 +87,7 @@ export class AddTaskComponent implements OnInit {
         newTask.tags.push({ text: 'Образование', class: 'education' });
       if (this.newTask.value.isUrgent)
         newTask.tags.push({ text: 'Срочно', class: 'urgent' });
-      this.taskService.add(newTask).subscribe();
+      setTimeout((() => this.taskService.add(newTask).subscribe()),1000);
       this.sideItem.close();
     }
   }

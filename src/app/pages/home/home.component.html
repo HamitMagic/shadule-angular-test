@@ -26,7 +26,7 @@
         <section class="tags">
             <span>теги</span>
             @for(tag of tags; track tag) {
-                <a class="tag" (click)="toggleTag(tag)" [ngClass]="{active: tag.isActive}">
+                <a class="tag" (click)="toggleTag(tag)" [id]="tag.class" [ngClass]="{active: tag.isActive}">
                     <mat-icon class="mat-icon" fontIcon="circle"></mat-icon>
                     <span class="tag-text" >{{tag.text}}</span>
                 </a>
@@ -36,6 +36,3 @@
     <router-outlet></router-outlet>
 </div>
 <app-add-task #sidenav></app-add-task>
-<!-- @if (statusSidenav()) { -->
-    <!-- <div #shadow class="shadow-background"></div> -->
-<!-- } -->

@@ -9,12 +9,16 @@
 	padding: 16px 0;
 	border: 1px solid #687697;
 }
+.task-wrapper:hover {
+	background: #242C43;
+}
 .tags {
 	display: flex;
 	gap: 8px;
 	& .tag-item {
 		border-radius: 8px;
 		padding: 0 4px;
+		cursor: pointer;
 	}
 }
 .productivity {

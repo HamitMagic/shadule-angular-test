@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ITask, ITaskID } from '../shared/models/tasks.model';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,24 +17,24 @@ export class APIService {
   }
   getByID(id: number) {
     try {
-      return this.get().find((task) => task.id === id);
+      return this.get().filter((task) => task.id === id);
     } catch (error) {
       throw new Error('не нашел(((');
     }
   }
   add(task: ITask): ITaskID {
     const tasks: ITaskID[] = this.get();
-    const data: ITaskID = { ...task, id: Math.random() * 100000000000 };
-    tasks.push(data as ITaskID);
+    const newTask: ITaskID = { ...task, id: Math.random() * 100000000000 };
+    tasks.push(newTask as ITaskID);
     try {
       localStorage.setItem('tasks', JSON.stringify(tasks));
-      return data;
+      return newTask;
     } catch (error) {
       throw new Error('ощибка записи данных');
     }
   }
 
-  modify(id: number, status: { key: string; value: boolean }) {
+  modify(id: number, status: { key: string; value: boolean }):void {
     const tasks: ITaskID[] = this.get().map((task) =>
       task.id === id ? { ...task, ...status } : task
     );

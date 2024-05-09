@@ -13,6 +13,9 @@ import {
   CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
+import { TagService } from '../../service/tag.service';
+import { ActiveTabService } from '../../service/activeTab.service';
+import { ROUTE_CONSTANTS } from '../../shared/models/route-constants';
 
 @Component({
   selector: 'app-my-tasks',
@@ -36,21 +39,29 @@ export class TasksComponent implements OnInit, OnDestroy {
   public pre = 0;
   public next = 4;
   private subscription!: Subscription;
-  constructor(private router: Router, private taskService: TaskService) {
+  public activeTab = this.activeTabService.get();
+  public routeConstants = ROUTE_CONSTANTS
+
+  constructor(
+    private router: Router,
+    private taskService: TaskService,
+    private tagService: TagService,
+    private activeTabService: ActiveTabService
+  ) {
     this.updateTaskList();
   }
-
+  
   private updateTaskList() {
     this.taskService
-      .filterTaskList(this.router.url.slice(1))
-      .subscribe((res) => ([this.text, this.taskList] = res));
+    .filterTaskList(this.router.url.slice(1))
+    .subscribe((res) => ([this.text, this.taskList] = res));
   }
-
+  
   ngOnInit(): void {
     this.subscription = this.taskService.subject.subscribe((newData) => {
       this.taskList = newData;
       this.changeShownTasks();
-      return
+      return;
     });
     this.changeShownTasks();
   }
@@ -75,9 +86,8 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (!this.searchText) this.changeShownTasks();
   }
   private changeShownTasks() {
-    console.log(this.taskList, '-----------tasklist')
     this.shownTaskList = [];
-    for (let i = Math.max(this.pre, 0); i <= Math.min(this.next, this.taskList.length - 1); i++) {
+    for (let i = Math.max(this.pre, 0);i <= Math.min(this.next, this.taskList.length - 1);i++) {
       this.shownTaskList.push(this.taskList[i]);
     }
   }
@@ -96,6 +106,7 @@ export class TasksComponent implements OnInit, OnDestroy {
       )
       .subscribe();
     this.changeShownTasks();
+    this.tagService.resetAll();
   }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(

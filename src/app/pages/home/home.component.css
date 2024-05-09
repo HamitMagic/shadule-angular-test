@@ -1,8 +1,6 @@
 .content-wrapper {
 	border-radius: 8px;
 	display: flex;
-	/* opacity: 1; */
-	/* filter: brightness(); */
 }
 .side-bar {
 	border: 1px solid #687697;
@@ -12,13 +10,16 @@
 	gap: 20px;
 	border-right: 1px solid #687697;
 	padding: 20px;
+	@media (width<600px) {
+		padding:4px;
+	}
 }
 .tab-group {
 	display: flex;
 	flex-direction: column;
 	color: #D0D2D6;
 	gap: 20px;
-	
+
 	& .tab-item {
 		position: relative;
 	}
@@ -28,7 +29,11 @@
 	& .activeTab {
 		color: #9B51E0;
 	}
+	@media (width<600px) {
+		gap: 4px;
+	}
 }
+
 .my-button {
 	background-color: #7367F0;
 	color: #FFFFFF;
@@ -39,8 +44,8 @@
 }
 .mat-icon {
 	transform: scale(0.6);
-	/* position: absolute; */
 	bottom: 0;
+	
 }
 .tags {
 	display: flex;
@@ -53,6 +58,10 @@
 		padding: 10px;
 		margin: 6px;
 		border-radius: 4px;
+		@media (width<600px) {
+			padding: 0;
+			margin: 0;
+		}
 	}
 	& :nth-child(2) {
 		color: #7367F0;
@@ -76,4 +85,9 @@ a {
 }
 .active {
 	border: 1px solid #9B51E0;
+}
+@media (width<600px) {
+	.tab-text, .tag-text {
+		display: none;
+	}
 }

@@ -9,6 +9,9 @@ body {
 	font-family: "Montserrat","Roboto", "Helvetica Neue", "sans-serif";
 	color: #D0D2D6;
 	box-sizing: border-box;
+	@media (width<600px) {
+		margin: 4px 4px;
+	}
 }
 .content-wrapper {
 	background-color: #3B4253;
